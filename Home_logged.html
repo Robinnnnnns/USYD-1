@@ -164,7 +164,7 @@
 
          
         .board-container {
-                  /* 👈 这一行把它推到最右 */
+           
             display: inline-flex;
             align-items: center;
             cursor: pointer;
@@ -208,6 +208,7 @@
   border-radius: 50%;
   display: block;
   transition: transform 0.25s ease;
+  
 }
 
 /* 没有加载图片时隐藏图像并显示背景 */
@@ -322,8 +323,9 @@
 
 
         .vcard:hover {
-        box-shadow: var(--shadow-xl);
-        transform: translateY(-4px);
+    
+        box-shadow: var(--shadow-sm);
+        border-color: var(--primary-orange);
 }
 
 /* 上图：固定竖向比例，保证“竖着”的观感 */
@@ -427,12 +429,12 @@
             <li class="nav-item"><a href="#" class="nav-link">To do</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
         </ul>
-        <div class="board-container">
-            <img src="Assets/1.png" alt="University Logo" class="logo-image">
-        </div>
-        <div class="avatar-container" style="--avatar-bg: #b8d8ff;">
+        <a href="#" class="board-container">
+            <img src="Assets/1.png" alt="Billboard" class="board-image">
+        </a>
+        <a href="#" class="avatar-container" style="--avatar-bg: #b8d8ff;">
             <img src="Assets\Avatar8.png" alt="User Avatar" class="avatar-img">
-        </div>
+        </a>
     </nav>
     <!-- Main Content -->
      <div class="card-wrapper">
@@ -567,3 +569,4 @@ document.querySelectorAll('.expand-btn').forEach(btn => {
   });
 });
 </script>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Avatar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --primary-orange: #F26B38;
+            --primary-orange-dark: #D95A2A;
+            --primary-orange-light: #FF8A5B;
+            --bg-main: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A1A;
+            --text-secondary: #4A4A4A;
+            --text-muted: #8A8A8A;
+            --border-color: #E8E8E8;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.06);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            display: grid;
+            grid-template-columns: 640px 1fr;  /* 左侧固定宽度，右侧自适应 */
+            align-items: center;               /* ✅ 垂直居中 */
+            min-height: 100vh;
+            padding-left: 60px;                /* 左侧安全边距 */
+            overflow-x: hidden;
+            transition: background-color .4s var(--ease);
+            font-family: 'Merriweather', serif;
+           
+        }
+
+        .avatar-left {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            align-items: center;
+            gap: 16px;
+            max-width: 640px;
+            min-height: 70vh;
+            padding: 12px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .avatar-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 2.5rem;
+            line-height: 1.2;
+            animation: slideInDown 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .avatar-preview {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #b8d8ff;
+            border-radius: 36px;
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .5s ease;
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp .7s ease .05s forwards;
+        }
+
+        .avatar-preview:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .avatar-preview img,
+        .avatar-preview canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ✅ Save 在外面；右下角对齐 */
+        .save-box {
+            justify-self: end;
+            align-self: start;   /* 从底部改成“跟随内容流”，方便 margin 控制 */
+            margin-top: 24px;    /* ✅ 往下推一点，可调 24~48px */
+            align-self: end;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(242, 107, 56, .30);
+        
+        }
+        .save-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .save-box:hover::before {
+            left: 100%;
+        }
+
+        .save-box:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(242, 107, 56, 0.5);
+        }
+
+        .save-box:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        a {
+  text-decoration: none;   /* ✅ 去掉下划线 */
+  color: inherit;          /* ✅ 继承父级颜色（不再是蓝色） */
+}
+
+        .avatar-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 45vw;
+  margin-left: auto;  /* ✅ 自动推到右侧 */
+  margin-right: 100px; /* ✅ 控制右边距 */
+  
+}
+
+
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.avatar-cell {
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg-card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.avatar-cell:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.avatar-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 选中状态 */
+.avatar-cell.active {
+  outline: 3px solid #F26B38;
+  outline-offset: 3px;
+}
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width:600px) {
+            .avatar-left {
+                max-width: 100%;
+                padding: 8px;
+                min-height: 60vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="avatar-left">
+        <h1 class="avatar-title">Create your avatar :D</h1>
+
+        <div class="avatar-preview" aria-label="Avatar preview area">
+          
+            <img id="avatarImg" src="Assets/Avatar8.png" alt="Avatar preview">
+        </div>
+
+        <a  href="Avatar2.html" class="save-box" id="saveBtn" aria-label="Save avatar">
+            <span> 💾 Save </span>
+        </a>
+    </section>
+    <aside class="avatar-right">
+
+        <div class="avatar-grid">
+            <div class="avatar-cell" data-src="Assets/Avatar1.png"><img src="Assets/Avatar1.png" alt="Avatar 1"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar2.png"><img src="Assets/Avatar2.png" alt="Avatar 2"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar3.png"><img src="Assets/Avatar3.png" alt="Avatar 3"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar4.png"><img src="Assets/Avatar4.png" alt="Avatar 4"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar5.png"><img src="Assets/Avatar5.png" alt="Avatar 5"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar6.png"><img src="Assets/Avatar6.png" alt="Avatar 6"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar7.png"><img src="Assets/Avatar7.png" alt="Avatar 7"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar8.png"><img src="Assets/Avatar8.png" alt="Avatar 8"></div>
+            <div class="avatar-cell" data-src="Assets/Avatar9.png"><img src="Assets/Avatar9.png" alt="Avatar 9"></div>
+        </div>
+    </aside>
+</body>
+<script>
+    const avatarImg = document.getElementById('avatarImg');
+    const cells = document.querySelectorAll('.avatar-cell');
+
+    cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // 清除旧选中
+            cells.forEach(c => c.classList.remove('active'));
+            // 设置新选中
+            cell.classList.add('active');
+            // 更新左侧大图
+            avatarImg.src = cell.dataset.src;
+        });
+    });
+</script>
+
+
+</html>

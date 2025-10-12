@@ -23,19 +23,21 @@
             --primary-orange: #F26B38;
             --primary-orange-dark: #D95A2A;
             --primary-orange-light: #FF8A5B;
+            --orange-glow: rgba(242, 107, 56, 0.25);
             --bg-main: #FAFAFA;
             --bg-secondary: #FFFFFF;
             --bg-card: #FFFFFF;
             --text-primary: #1A1A1A;
             --text-secondary: #4A4A4A;
             --text-muted: #8A8A8A;
+            --ultra-light: #F2F2F2;
             --border-color: #E8E8E8;
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
             --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.12);
             --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.15);
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(0, 0, 0, 0.06);
+            --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         body {
@@ -104,43 +106,50 @@
         }
 
         .action-row {
-  display: flex;
-  justify-content: flex-end;  /* ✅ 靠右排列 */
-  gap: 12px;                  /* ✅ 按钮间距 */
-  margin-top: 40px;           /* ✅ 距离上方 avatar */
-}
+            display: flex;
+            justify-content: flex-end;
+            /* ✅ 靠右排列 */
+            gap: 12px;
+            /* ✅ 按钮间距 */
+            margin-top: 24px;
+            /* ✅ 距离上方 avatar */
+        }
 
-/* 统一基础按钮风格 */
-.back-box,
-.save-box {
-  position: relative; /* ✅ 关键：作为 ::before 的定位参考 */
-  overflow: hidden;   /* ✅ 防止伪元素跑出按钮外 */
-  text-decoration: none;              /* 去掉下划线 */
-  color: #fff;
-  font-weight: 600;
-  font-size: 1.05rem;
-  border-radius: 12px;
-  padding: 10px 18px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
-  transition: transform .3s ease, box-shadow .3s ease;
-}
+        /* 统一基础按钮风格 */
+        .back-box,
+        .save-box {
+            position: relative;
+            /* ✅ 关键：作为 ::before 的定位参考 */
+            overflow: hidden;
+            /* ✅ 防止伪元素跑出按钮外 */
+            text-decoration: none;
+            /* 去掉下划线 */
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.05rem;
+            border-radius: 12px;
+            padding: 10px 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
 
-/* Back 按钮：冷色系（蓝灰） */
-.back-box {
-  background: linear-gradient(135deg, var(--text-secondary), var(--text-primary));
-  box-shadow: 0 4px 15px var(--shadow-sm);
-}
+        /* Back 按钮：冷色系（蓝灰） */
+        .back-box {
+            background: linear-gradient(135deg, var(--text-secondary), var(--text-primary));
+            box-shadow: 0 4px 15px var(--shadow-sm);
+        }
 
-/* Save 按钮：暖色系（橙） */
-.save-box {
-  background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
-  box-shadow: 0 4px 15px rgba(242,107,56,.3);
-}
-.save-box::before {
+        /* Save 按钮：暖色系（橙） */
+        .save-box {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-dark));
+            box-shadow: 0 4px 15px rgba(242, 107, 56, .3);
+        }
+
+        .save-box::before {
             content: '';
             position: absolute;
             top: 0;
@@ -155,10 +164,60 @@
             left: 100%;
         }
 
-.save-box:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(242,107,56,.4);
-}
+        .save-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(242, 107, 56, .4);
+        }
+
+        .avatar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 50vw;
+            margin-left: auto;
+            margin-right: 100px;
+            opacity: 0;                           /* 初始隐藏 */
+            transform: translateX(60px);          /* 初始稍微偏右 */
+            animation: slideInRight 0.9s ease-out forwards; /* 播放动画 */
+
+        }
+
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .tag-item {
+            padding: 10px 50px;
+            background: var(--ultra-light);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition-bounce);
+            cursor: default;
+        }
+
+        .tag-item:hover {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: var(--bg-main);
+            border-color: var(--primary-orange);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 4px 16px var(--orange-glow);
+        }
+
+        .tag-item.active {
+            background: linear-gradient(135deg, var(--primary-orange), var(--primary-orange-light));
+            color: var(--bg-main);
+            border-color: var(--primary-orange);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 4px 16px var(--orange-glow);
+        }
+
+
 
 
         a {
@@ -167,8 +226,11 @@
             color: inherit;
             /* ✅ 继承父级颜色（不再是蓝色） */
         }
+        h2 {
+             margin-top: 35px;   /* 上方间距 */
+        }
 
-        
+
 
         @keyframes fadeUp {
             to {
@@ -196,6 +258,16 @@
                 min-height: 60vh;
             }
         }
+        @keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
     </style>
 </head>
 
@@ -213,7 +285,58 @@
             <a href="Avatar3.html" class="save-box" id="saveBtn" aria-label="Save avatar">💾 Save</a>
         </div>
     </section>
-    
+    <aside class="avatar-right">
+        <h2>Personality: </h2>
+        <div class="tag-list">
+            <div class="tag-item">Empathetic</div>
+            <div class="tag-item">Adventurous</div>
+            <div class="tag-item">Detail-Oriented</div>
+            <div class="tag-item">Open-Minded</div>
+            <div class="tag-item">Reflective</div>
+            <div class="tag-item">Passionate</div>
+            <div class="tag-item">passionate</div>
+            <div class="tag-item">passionate</div>
+        </div>
+        <h2>Strength: </h2>
+        <div class="tag-list">
+            <div class="tag-item">Empathetic</div>
+            <div class="tag-item">Adventurous</div>
+            <div class="tag-item">Detail-Oriented</div>
+            <div class="tag-item">Open-Minded</div>
+            <div class="tag-item">Reflective</div>
+            <div class="tag-item">Passionate</div>
+            <div class="tag-item">passionate</div>
+            <div class="tag-item">passionate</div>
+        </div>
+        <h2>Team Role: </h2>
+        <div class="tag-list">
+            <div class="tag-item">Empathetic</div>
+            <div class="tag-item">Adventurous</div>
+            <div class="tag-item">Detail-Oriented</div>
+            <div class="tag-item">Open-Minded</div>
+            <div class="tag-item">Reflective</div>
+            <div class="tag-item">Passionate</div>
+            <div class="tag-item">passionate</div>
+            <div class="tag-item">passionate</div>
+        </div>
+
+    </aside>
+</body>
+<script>
+    const tags = document.querySelectorAll('.tag-item');
+
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+
+            tag.classList.toggle('active');
+
+
+        });
+    });
+</script>
+
+
+
 
 
 

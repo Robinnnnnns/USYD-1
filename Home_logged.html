@@ -36,22 +36,7 @@
             --transition-bounce: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        [data-theme="dark"] {
-            --deep-black: #FAFAFA;
-            --charcoal: #E8E8E8;
-            --dark-grey: #CCCCCC;
-            --mid-grey: #999999;
-            --light-grey: #404040;
-            --ultra-light: #2A2A2A;
-            --pure-white: #FAFAFA;
-            --card-bg: #1E1E1E;
-            --page-bg: #121212;
-            --border-color: #333333;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
-        }
+        
 
         body {
             --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -178,7 +163,7 @@
         }
 
         .board-image {
-            height: 52px;
+            height: 85px;
             width: auto;
             transition: var(--transition-smooth);
         }
@@ -225,67 +210,6 @@
 .avatar-container:hover .avatar-img {
   transform: scale(1.05);
 }
-
-        .theme-toggle {
-            background: var(--ultra-light);
-            border: 2px solid var(--border-color);
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            transition: var(--transition-bounce);
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theme-toggle::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--primary-orange), var(--orange-light));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(20deg) scale(1.12);
-            box-shadow: var(--shadow-md);
-            border-color: var(--primary-orange);
-        }
-
-        .theme-toggle:hover::before {
-            opacity: 1;
-        }
-
-        .theme-toggle span {
-            position: relative;
-            z-index: 1;
-            transition: var(--transition-smooth);
-        }
-
-        .theme-toggle:hover span {
-            filter: brightness(0) invert(1);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--dark-grey);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .mobile-menu-btn:hover {
-            color: var(--primary-orange);
-            transform: scale(1.1);
-        }
 
        
 
@@ -430,7 +354,7 @@
             <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
         </ul>
         <a href="#" class="board-container">
-            <img src="Assets/1.png" alt="Billboard" class="board-image">
+            <img src="Assets\billboard.png" alt="Billboard" class="board-image">
         </a>
         <a href="#" class="avatar-container" style="--avatar-bg: #b8d8ff;">
             <img src="Assets\Avatar8.png" alt="User Avatar" class="avatar-img">

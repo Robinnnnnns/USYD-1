@@ -74,7 +74,7 @@
             height: 88px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start; ;
             padding: 0 64px;
             box-shadow: var(--shadow-sm);
             z-index: 9999;
@@ -106,6 +106,8 @@
             transition: var(--transition-smooth);
         }
 
+       
+
         .navbar.scrolled .logo-image {
             height: 44px;
         }
@@ -115,6 +117,7 @@
             gap: 48px;
             list-style: none;
             align-items: center;
+            margin: 0 auto; 
         }
 
         .nav-item {
@@ -157,11 +160,70 @@
             color: var(--primary-orange);
         }
 
-        .nav-actions {
-            display: flex;
+     
+
+         
+        .board-container {
+                  /* 👈 这一行把它推到最右 */
+            display: inline-flex;
             align-items: center;
-            gap: 20px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+          
         }
+        .navbar { gap: 16px; }
+
+        .board-container:hover {
+            transform: translateY(-2px);
+        }
+
+        .board-image {
+            height: 52px;
+            width: auto;
+            transition: var(--transition-smooth);
+        }
+
+        .avatar-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--avatar-bg,#e5e5e5); /* ✅ 默认背景颜色，可被 inline 覆盖 */
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg, 0 6px 16px rgba(0,0,0,0.15));
+  cursor: pointer;
+  transition: var(--transition-smooth, all 0.3s ease);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 16px;
+  position: relative;
+}
+
+/* 图片正常显示时填满圆框 */
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+/* 没有加载图片时隐藏图像并显示背景 */
+.avatar-img[src=""], 
+.avatar-img:not([src]) {
+  display: none;
+}
+
+/* 悬浮动效，与卡片一致 */
+.avatar-container:hover {
+  box-shadow: var(--shadow-xl, 0 10px 24px rgba(0,0,0,0.25));
+  transform: translateY(-3px);
+}
+.avatar-container:hover .avatar-img {
+  transform: scale(1.05);
+}
 
         .theme-toggle {
             background: var(--ultra-light);
@@ -298,7 +360,7 @@
   align-self: flex-start;
   background: none;
   border: none;
-  color: #888;
+  color: var(--mid-grey);
   font-size: 14px;
   cursor: pointer;
   margin-bottom: 10px;
@@ -312,7 +374,7 @@
 .vcard-links {
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #eee;
+  border-top: 1px solid --border-color;
   padding-top: 10px;
   margin-top: auto; /* 把链接推到底部 */
 }
@@ -365,9 +427,11 @@
             <li class="nav-item"><a href="#" class="nav-link">To do</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Help</a></li>
         </ul>
-        <div class="nav-actions">
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <div class="board-container">
+            <img src="Assets/1.png" alt="University Logo" class="logo-image">
+        </div>
+        <div class="avatar-container" style="--avatar-bg: #b8d8ff;">
+            <img src="Assets\Avatar8.png" alt="User Avatar" class="avatar-img">
         </div>
     </nav>
     <!-- Main Content -->

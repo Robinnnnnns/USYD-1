@@ -211,12 +211,12 @@
 
         .tag-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(90px, 20vw, 180px), max-content));
-            gap: clamp(10px, 1.8vw, 16px);
+            grid-template-columns: repeat(auto-fit, minmax(clamp(70px, 18vw, 140px), max-content));
+            gap: clamp(6px, 1vw, 10px);
         }
 
         .tag-item {
-            padding: var(--chip-pad-y) calc(var(--chip-pad-x) * 0.5);
+            padding: calc(var(--chip-pad-y) * 0.7) calc(var(--chip-pad-x) * 0.4); /* 横向更窄 */
             background: var(--ultra-light);
             border: 2px solid var(--border-color);
             border-radius: 999px;

@@ -52,15 +52,19 @@
             --fs-btn: clamp(14px, 1.2vw, 16px);
             --chip-pad-y: clamp(8px, 1vw, 10px);
             --chip-pad-x: clamp(16px, 2vw, 24px);
+
+            /* 新增：统一控制预览框尺寸 */
+            --preview-size: clamp(260px, 34vw, 420px);
         }
 
         /* layout */
         .page {
             min-height: 100%;
             display: grid;
-            grid-template-columns: minmax(0, var(--col-max)) 1fr;
+            grid-template-columns: minmax(0, var(--col-max)) minmax(320px, 1fr);
             gap: var(--page-gap);
             align-items: center;
+            /* 两栏在屏幕中线垂直对齐 */
             padding: env(safe-area-inset-top) clamp(12px, 4vw, 40px) env(safe-area-inset-bottom) clamp(12px, 4vw, 40px);
         }
 
@@ -68,17 +72,23 @@
             .page {
                 grid-template-columns: 1fr;
                 align-items: start;
+                /* 小屏从上往下排 */
             }
         }
 
         /* left */
         .avatar-left {
             display: grid;
-            grid-template-rows: auto 1fr auto;
-            gap: clamp(12px, 1.8vw, 20px);
+            grid-template-rows: auto auto auto;
+            gap: clamp(12px, 1.6vw, 18px);
             margin-inline: auto;
             width: 100%;
-            max-width: var(--col-max);
+            max-width: unset;
+            /* 尺寸交给预览变量控制 */
+            justify-items: center;
+            /* 标题/预览/按钮水平居中 */
+            align-self: center;
+            /* 与右侧同一垂直中线 */
         }
 
         .avatar-title {
@@ -86,11 +96,14 @@
             font-size: var(--fs-h1);
             font-weight: 900;
             line-height: 1.2;
+            text-align: center;
         }
 
         .avatar-preview {
-            width: 100%;
-            aspect-ratio: 1/1;
+            width: var(--preview-size);
+            height: var(--preview-size);
+            aspect-ratio: auto;
+            /* 使用固定宽高实现正方形 */
             background: #b8d8ff;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
@@ -115,8 +128,11 @@
 
         .action-row {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            /* 改为居中 */
+            align-items: center;
             gap: 12px;
+            width: 100%;
         }
 
         .btn {
@@ -136,6 +152,7 @@
             position: relative;
             overflow: hidden;
             touch-action: manipulation;
+            white-space: nowrap;
         }
 
         .btn:focus-visible {
@@ -179,6 +196,8 @@
             width: 100%;
             max-width: min(900px, 92vw);
             margin-inline: auto;
+            align-self: center;
+            /* 与左侧在同一垂直中线 */
         }
 
         h2 {
@@ -192,12 +211,12 @@
 
         .tag-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 28vw, 240px), max-content));
+            grid-template-columns: repeat(auto-fit, minmax(clamp(90px, 20vw, 180px), max-content));
             gap: clamp(10px, 1.8vw, 16px);
         }
 
         .tag-item {
-            padding: var(--chip-pad-y) var(--chip-pad-x);
+            padding: var(--chip-pad-y) calc(var(--chip-pad-x) * 0.5);
             background: var(--ultra-light);
             border: 2px solid var(--border-color);
             border-radius: 999px;
